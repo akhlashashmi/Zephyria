@@ -30,4 +30,13 @@ class Utils {
         return 'assets/lottie/cloudy.json'; // default to cloudy if no matching condition is found
     }
   }
+
+  static String parseDateTime(String dateTime) {
+    final dateTimeParsed = DateTime.parse(dateTime);
+    final hour = dateTimeParsed.hour;
+    final minute = dateTimeParsed.minute;
+    final amPm = hour >= 12 ? 'PM' : 'AM';
+    final hour12 = hour > 12 ? hour - 12 : hour;
+    return '$hour12:$minute $amPm';
+  }
 }

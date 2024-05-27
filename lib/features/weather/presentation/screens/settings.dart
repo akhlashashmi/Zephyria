@@ -25,7 +25,9 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
       padding: EdgeInsets.fromLTRB(size.width * 0.05, 0, size.width * 0.05, 0),
       child: SingleChildScrollView(
         child: Column(children: [
+          SizedBox(height: size.height * 0.07),
           SwitchListTile(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             value: isDark,
             onChanged: (value) => changeIsDark.toggleTheme(),
             title: const Text('Change Theme'),

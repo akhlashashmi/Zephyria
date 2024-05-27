@@ -1,4 +1,5 @@
 // StateNotifier to manage the selected index
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SelectedIndexNotifier extends StateNotifier<int> {
@@ -12,4 +13,9 @@ class SelectedIndexNotifier extends StateNotifier<int> {
 final selectedIndexProvider =
     StateNotifierProvider<SelectedIndexNotifier, int>((ref) {
   return SelectedIndexNotifier();
+});
+
+
+final pageControllerProvider = Provider<PageController>((ref) {
+  return PageController();
 });

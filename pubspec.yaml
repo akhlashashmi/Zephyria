@@ -44,6 +44,7 @@ dependencies:
   lottie: ^3.1.2
   svg_flutter: ^0.0.1
   path_provider: ^2.1.3
+  internet_connection_checker: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,11 @@ flutter:
     - assets/svg/drop-humidity-icon.svg
     - assets/svg/thermometer-icon.svg
     - assets/svg/wind-icon.svg
+    - assets/svg/wind.svg
+    - assets/svg/visibility.svg
+    - assets/svg/gust.svg
+    - assets/svg/pressure.svg
+
     # - 
   #   - images/a_dot_ham.jpeg
 
