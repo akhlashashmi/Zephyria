@@ -40,28 +40,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       pageController.jumpToPage(index);
     }
 
-    String getTitle(int selectedIndex) {
-      switch (selectedIndex) {
-        case 0:
-          return 'Weather Today';
-        case 1:
-          return 'Search Location';
-        case 2:
-          return 'Preferences';
-        default:
-          return 'Weather App';
-      }
-    }
-
     return internetConnected.when(
       data: (data) {
         if (!data) {
-          return const Scaffold(body: ErrorScreen(),);
+          return const Scaffold(
+            body: ErrorScreen(),
+          );
         }
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text(getTitle(selectedIndex)),
-          // ),
           body: PageView(
             controller: pageController,
             onPageChanged: (index) {

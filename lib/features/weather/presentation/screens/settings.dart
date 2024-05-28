@@ -26,12 +26,21 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
       child: SingleChildScrollView(
         child: Column(children: [
           SizedBox(height: size.height * 0.07),
-          SwitchListTile(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          SwitchListTile.adaptive(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             value: isDark,
             onChanged: (value) => changeIsDark.toggleTheme(),
             title: const Text('Change Theme'),
-            subtitle: const Text('Turn it on to enable dark theme'),
+            subtitle: Text(
+              'Turn it on to enable dark theme',
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSecondaryContainer
+                        .withOpacity(0.8),
+                  ),
+            ),
           )
         ]),
       ),

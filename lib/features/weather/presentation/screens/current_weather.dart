@@ -44,7 +44,7 @@ class CurrentWeather extends ConsumerWidget {
                 alignment: Alignment.center,
                 width: size.width * 0.5,
                 child: Text(
-                  Utils.parseDateTime(
+                  Utils.formatTo12HourTime(
                       weather.current!.lastUpdated.toString()),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
