@@ -5,7 +5,7 @@ import 'package:svg_flutter/svg_flutter.dart';
 import 'package:weather/features/weather/data/models/weather_data.dart';
 import 'package:weather/features/weather/presentation/controllers/current_location_controller.dart';
 import 'package:weather/features/weather/presentation/controllers/weather_controller.dart';
-import 'package:weather/features/weather/utils/hive_box_names.dart';
+import 'package:weather/features/weather/utils/hive_constants.dart';
 import 'package:weather/features/weather/utils/utils.dart';
 
 class CurrentWeather extends ConsumerWidget {
@@ -14,7 +14,7 @@ class CurrentWeather extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentLocation =
-        ref.watch(currentLocationProvider(HiveBoxes.preferences.name));
+        ref.watch(currentLocationProvider(HiveBoxes.preferences));
     final weatherAsyncValue =
         ref.watch(currentWeatherProvider(currentLocation));
     final Size size = MediaQuery.of(context).size;

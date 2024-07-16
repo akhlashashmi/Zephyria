@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:weather/features/weather/utils/hive_box_names.dart';
+import 'package:weather/features/weather/utils/hive_constants.dart';
 import 'dart:developer' as developer;
 
 
 final currentLocationProvider = StateNotifierProvider.family<HiveValueController, String, String>((ref, boxName) {
-  return HiveValueController(ref.read(hiveBoxProvider(boxName)), HiveKeyNames.currentLocation.name, 'islamabad');
+  return HiveValueController(ref.read(hiveBoxProvider(boxName)), HiveKeys.currentLocation, 'islamabad');
 });
 
 class HiveValueController extends StateNotifier<String> {

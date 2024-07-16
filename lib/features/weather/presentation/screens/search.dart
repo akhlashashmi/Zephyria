@@ -5,7 +5,7 @@ import 'package:weather/features/weather/presentation/controllers/current_locati
 import 'package:weather/features/weather/presentation/controllers/page_controller.dart';
 import 'package:weather/features/weather/presentation/controllers/weather_controller.dart';
 import 'package:weather/features/weather/presentation/widgets/search_field.dart';
-import 'package:weather/features/weather/utils/hive_box_names.dart';
+import 'package:weather/features/weather/utils/hive_constants.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -21,7 +21,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final currentLocation =
-        ref.read(currentLocationProvider(HiveBoxes.preferences.name).notifier);
+        ref.read(currentLocationProvider(HiveBoxes.preferences).notifier);
     if (controller.text.isNotEmpty) {
       weatherAsyncValue = ref.watch(searchLocationsProvider(controller.text));
     }

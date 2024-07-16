@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:weather/features/weather/presentation/controllers/current_location_controller.dart';
-import 'package:weather/features/weather/utils/hive_box_names.dart';
+import 'package:weather/features/weather/utils/hive_constants.dart';
 import 'dart:developer' as developer;
 
 final themeProvider = StateNotifierProvider.family<ThemeController, bool, String>((ref, boxName) {
@@ -10,7 +10,7 @@ final themeProvider = StateNotifierProvider.family<ThemeController, bool, String
 
 class ThemeController extends StateNotifier<bool> {
   final Box box;
-  final String key = HiveKeyNames.isDarkTheme.name;
+  final String key = HiveKeys.isDarkTheme;
 
   ThemeController(this.box) : super(false) {
     _fetchValue();
