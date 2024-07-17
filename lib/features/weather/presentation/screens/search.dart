@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather/features/weather/data/models/location.dart';
 import 'package:weather/features/weather/presentation/controllers/current_location_controller.dart';
 import 'package:weather/features/weather/presentation/controllers/page_controller.dart';
+import 'package:weather/features/weather/presentation/controllers/search_keyword_controller.dart';
 import 'package:weather/features/weather/presentation/controllers/weather_controller.dart';
 import 'package:weather/features/weather/presentation/widgets/search_field.dart';
 import 'package:weather/features/weather/utils/hive_constants.dart';
@@ -15,11 +16,11 @@ class SearchScreen extends ConsumerStatefulWidget {
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
-  final TextEditingController controller = TextEditingController();
   late AsyncValue<List<SearchedLocation>> weatherAsyncValue;
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(searchKeywordProvider);
     final currentLocation =
         ref.read(currentLocationProvider(HiveBoxes.preferences).notifier);
     if (controller.text.isNotEmpty) {
@@ -39,7 +40,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         children: [
           SizedBox(height: size.height * 0.07),
           Padding(
-            padding: EdgeInsets.fromLTRB(size.width * 0.05, 0, size.width * 0.05, 0),
+            padding:
+                EdgeInsets.fromLTRB(size.width * 0.05, 0, size.width * 0.05, 0),
             child: SearchField(
               controller: controller,
               hint: 'Search location',
@@ -59,18 +61,27 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 data: (List<SearchedLocation> searches) => ListView.builder(
                   itemCount: searches.length,
                   itemBuilder: (context, index) => ListTile(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
                     onTap: () {
-                      currentLocation
-                          .setValue('${searches[index].name.toString()}, ${searches[index].region.toString()}');
+                      currentLocation.setValue(
+                          '${searches[index].name.toString()}, ${searches[index].region.toString()}');
                       onItemTapped(0);
                     },
                     title: Text(searches[index].name.toString()),
-                    subtitle: Text('${searches[index].region.toString()} | ${searches[index].country.toString()}'),
+                    subtitle: Text(
+                        '${searches[index].region.toString()} | ${searches[index].country.toString()}'),
                   ),
                 ),
-                loading: () =>
-                    const Center(child: CircularProgressIndicator()),
+                loading: () => Center(
+                  child: SizedBox(
+                    width: size.width * 0.15,
+                    height: size.width * 0.15,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                    ),
+                  ),
+                ),
                 error: (err, stack) => Text(
                   err.toString(),
                   style: const TextStyle(color: Colors.red),

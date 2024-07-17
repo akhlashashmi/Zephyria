@@ -59,10 +59,12 @@ final fiveDayForecastProvider =
     FutureProvider.family<WeatherForcast, dynamic>((ref, data) {
   final repository = ref.watch(weatherRepositoryProvider);
   
-  // If the data is a city name, use it to fetch the forecast.
+  // If the data is a city name, use it to fetch the forecast, other vise 
   if (data is String) {
     return repository.getFiveDayForecast( city: data); 
-  } else {
+  } else if (data is List<double>) {
     return repository.getFiveDayForecast(lat: data[0], lon: data[1]);
+  } else {
+    throw Exception('Invalid data type for fiveDayForecastProvider');
   }
 });

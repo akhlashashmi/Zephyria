@@ -56,7 +56,7 @@ class WeatherService {
       }
     } catch (e) {
       developer.log('Exception occurred while fetching weather by coordinates: $e', name: 'WeatherService', error: e);
-      throw e;
+      rethrow;
     }
   }
 
@@ -75,7 +75,7 @@ class WeatherService {
       }
     } catch (e) {
       developer.log('Exception occurred while searching locations: $e', name: 'WeatherService', error: e);
-      throw e;
+      rethrow;
     }
   }
 
@@ -99,7 +99,7 @@ class WeatherService {
       }
     } catch (e) {
       developer.log('Exception occurred while fetching 5-day forecast: $e', name: 'WeatherService', error: e);
-      throw e;
+      rethrow;
     }
   }
 }
