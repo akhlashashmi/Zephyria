@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:weather/features/weather/presentation/controllers/internet_checker_controller.dart';
 import 'package:weather/features/weather/presentation/controllers/page_controller.dart'; // Import the provider
@@ -7,6 +10,8 @@ import 'package:weather/features/weather/presentation/screens/current_weather.da
 import 'package:weather/features/weather/presentation/screens/search.dart';
 import 'package:weather/features/weather/presentation/screens/settings.dart';
 import 'package:weather/features/weather/presentation/widgets/error.dart';
+
+import '../../data/repositories/location_service.dart';
 
 final selectedIndexProvider =
     StateNotifierProvider<SelectedIndexNotifier, int>((ref) {
@@ -24,8 +29,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool internetStatus = true;
   @override
   void initState() {
-    // getCurrentLocation();
+    getCurrentLocation();
     super.initState();
+  }
+
+  Future<void> getCurrentLocation() async {
+    final Position ps = await LocationService.getCurrentLocation();
+    log('oooooooooooooooooooooooooooooooooooooo');
+    log('${ps.accuracy}, ${ps.latitude}, ${ps.longitude}');
   }
 
   @override
