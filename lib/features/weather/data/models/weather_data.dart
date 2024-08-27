@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class WeatherData {
   Location? location;
   Current? current;

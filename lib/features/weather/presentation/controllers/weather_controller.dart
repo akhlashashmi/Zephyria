@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather/constants/constants.dart';
 import 'package:weather/features/weather/data/models/location.dart';
 import 'package:weather/features/weather/data/models/weather_data.dart';
 import 'package:weather/features/weather/data/models/weather_forcast.dart';
