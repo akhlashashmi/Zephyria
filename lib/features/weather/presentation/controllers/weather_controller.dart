@@ -1,8 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather/features/weather/data/models/location.dart';
 import 'package:weather/features/weather/data/models/weather_data.dart';
 import 'package:weather/features/weather/data/models/weather_forcast.dart';
+import 'package:weather/features/weather/data/repositories/location_service.dart';
 import 'package:weather/features/weather/data/repositories/weather_service.dart';
+import 'package:weather/features/weather/presentation/controllers/current_location_controller.dart';
+import 'package:weather/features/weather/utils/hive_constants.dart';
 
 class WeatherRepository {
   final WeatherService weatherService;
@@ -65,5 +69,32 @@ final fiveDayForecastProvider =
     return repository.getFiveDayForecast(lat: data[0], lon: data[1]);
   } else {
     throw Exception('Invalid data type for fiveDayForecastProvider');
+  }
+});
+
+// Provider for the current location coordinates
+final currentLocationCoordsProvider = FutureProvider<Position>((ref) async {
+  try {
+    final position = await LocationService.determinePosition();
+    return position;
+  } catch (e) {
+    throw Exception('Failed to get location: $e');
+  }
+});
+
+// Provider for weather based on coordinates
+final weatherByLocationProvider = FutureProvider<WeatherForcast>((ref) async {
+  try {
+    final position = await ref.watch(currentLocationCoordsProvider.future);
+    final repository = ref.watch(weatherRepositoryProvider);
+    return await repository.getFiveDayForecast(
+      lat: position.latitude,
+      lon: position.longitude,
+    );
+  } catch (e) {
+    // If location fails, fall back to default location
+    final currentLocation = ref.watch(currentLocationProvider(HiveBoxes.preferences));
+    final repository = ref.watch(weatherRepositoryProvider);
+    return await repository.getFiveDayForecast(city: currentLocation);
   }
 });
