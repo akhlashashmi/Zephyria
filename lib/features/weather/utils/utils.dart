@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Utils {
   static String getAnimationFileName(String condition) {
     switch (condition) {
@@ -90,4 +92,19 @@ class Utils {
     String formattedTime = '$formattedHour:$formattedMinute $period';
     return formattedTime;
   }
+
+    /// Formats the icon URL from the weather API to ensure it's a valid path.
+  static String formatIconUrl(String iconPath) {
+    return 'https:$iconPath'; // Assuming the API returns a relative path
+  }
+
+  /// Converts a time string (e.g., `2024-12-09 14:00`) to a 12-hour format with AM/PM.
+  static String toHourlyForcastTime(String time) {
+    final parsedTime = DateTime.parse(time);
+    final formattedTime = TimeOfDay.fromDateTime(parsedTime);
+    final hour = formattedTime.hourOfPeriod == 0 ? 12 : formattedTime.hourOfPeriod;
+    final period = formattedTime.period == DayPeriod.am ? 'AM' : 'PM';
+    return '$hour:00 $period';
+  }
+
 }

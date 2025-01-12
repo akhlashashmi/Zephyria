@@ -94,7 +94,7 @@ class WeatherService {
         developer.log('5-day forecast data fetched successfully', name: 'WeatherService');
         return WeatherForcast.fromJson(jsonDecode(response.body));
       } else {
-        developer.log('Failed to load 5-day forecast data: ${response.statusCode}', name: 'WeatherService', error: response.body);
+        developer.log('Failed to load 5-day forecast data: ${response.body}', name: 'WeatherService', error: response.body);
         throw Exception('Failed to load weather forecast');
       }
     } catch (e) {
